@@ -1,7 +1,8 @@
 import os
+from datetime import date
 
-# Send limits
-DAILY_SEND_LIMIT = 35
+# Send limits — 35/day during reputation recovery, auto-bumps to 80 from 2026-07-15
+DAILY_SEND_LIMIT = 80 if date.today() >= date(2026, 7, 15) else 35
 SEND_WINDOW_START = 8   # 8 AM local time
 SEND_WINDOW_END = 17    # 5 PM local time
 MIN_DELAY_SECONDS = 45
