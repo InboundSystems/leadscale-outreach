@@ -1,0 +1,29 @@
+# Environment
+.env
+.env.*
+
+# Contact data
+*.csv
+*.xlsx
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Google OAuth — never commit these
+credentials.json
+token.json
+client_secret_*.json
+
+# Database — contains all contact/send data
+*.db
+
+# Claude local settings
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
