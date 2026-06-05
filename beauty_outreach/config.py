@@ -1,7 +1,7 @@
 import os
 
 # Send limits
-DAILY_SEND_LIMIT = 80
+DAILY_SEND_LIMIT = 35
 SEND_WINDOW_START = 8   # 8 AM local time
 SEND_WINDOW_END = 17    # 5 PM local time
 MIN_DELAY_SECONDS = 45
@@ -27,7 +27,7 @@ CREDENTIALS_PATH = os.environ.get("CREDENTIALS_PATH", "credentials.json")
 TOKEN_PATH       = os.environ.get("TOKEN_PATH",       "token.json")
 
 # Tracking pixel base URL — must be a real public URL in production
-TRACKING_BASE_URL = os.environ.get("TRACKING_BASE_URL", "http://localhost:5000")
+TRACKING_BASE_URL = os.environ.get("TRACKING_BASE_URL", "https://leadscale-outreach.onrender.com")
 
 # Flask secret key — always set this in production
 SECRET_KEY = os.environ.get("SECRET_KEY", "change-me-in-production")
