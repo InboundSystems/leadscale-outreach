@@ -1,3 +1,5 @@
+import os
+
 # Send limits
 DAILY_SEND_LIMIT = 80
 SEND_WINDOW_START = 8   # 8 AM local time
@@ -13,19 +15,19 @@ WARMUP_ALREADY_SENT = 65
 WARMUP_ALREADY_RECEIVED = 50
 WARMUP_START_DAY = 15
 
-# Warm-up seed emails — replace with real addresses that will open and reply
+# Warm-up seed emails
 WARMUP_SEED_EMAILS = [
     "admin@leadscalesystems.net",
     "samhindmarsh101@gmail.com",
 ]
 
-# Paths
-DB_PATH = "beauty_outreach.db"
-CREDENTIALS_PATH = "credentials.json"
-TOKEN_PATH = "token.json"
+# Paths — override via env vars in production
+DB_PATH          = os.environ.get("DB_PATH",          "beauty_outreach.db")
+CREDENTIALS_PATH = os.environ.get("CREDENTIALS_PATH", "credentials.json")
+TOKEN_PATH       = os.environ.get("TOKEN_PATH",       "token.json")
 
-# Tracking pixel base URL (set to your deployed domain)
-TRACKING_BASE_URL = "http://localhost:5000"
+# Tracking pixel base URL — must be a real public URL in production
+TRACKING_BASE_URL = os.environ.get("TRACKING_BASE_URL", "http://localhost:5000")
 
-# Flask secret key
-SECRET_KEY = "change-me-in-production"
+# Flask secret key — always set this in production
+SECRET_KEY = os.environ.get("SECRET_KEY", "change-me-in-production")
