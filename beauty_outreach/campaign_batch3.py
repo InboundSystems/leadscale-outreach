@@ -41,7 +41,8 @@ def _plain_to_html(text: str) -> str:
     return text.replace("\n", "<br>")
 
 
-def build_batch3_email(contact) -> dict:
+def build_batch3_email(contact) -> dict | None:
+    """Returns None if the contact's email body is missing (needs re-import)."""
     step = contact['email_step']
     first_name = get_first_name(contact['business_name'])
     # Offset ID so batch3 tracking pixels don't collide with existing contacts
@@ -50,6 +51,8 @@ def build_batch3_email(contact) -> dict:
     if step == 'Initial Email':
         subject = contact['email_subject']
         body_text = contact['email_body']
+        if not body_text:
+            return None  # body lost during re-queue; skip until re-imported
     else:
         subj_tpl, body_tpl = STEP_TEMPLATE_MAP[step]
         subject = subj_tpl.replace('[first_name]', first_name)
@@ -122,6 +125,12 @@ def run_batch3_session() -> dict:
                 continue
 
         email = build_batch3_email(contact)
+
+        if email is None:
+            mark_batch3_skipped(contact['id'])
+            skipped += 1
+            _log(f"Skipped (missing email body — needs re-import) → {contact['email']}")
+            continue
 
         try:
             send_email(
